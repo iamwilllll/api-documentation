@@ -5,7 +5,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import { env } from './config/index.js';
 import cors, { type CorsOptions } from 'cors';
-import { appRouter } from './routes/appRouter.js';
+import appRouter from './routes/appRouter.js';
 
 (async () => {
     await Database.connect();

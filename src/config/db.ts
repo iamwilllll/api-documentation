@@ -1,11 +1,19 @@
+import mongoose from 'mongoose';
+import { env } from './env.js';
+import { exit } from 'node:process';
 import colors from 'colors';
 
 export class Database {
     static async connect() {
-        console.log(colors.bold.green('Connecting to database...'));
-    }
+        const url = env.DB.URL;
 
-    static async disconnect() {
-        console.log(colors.bold.red('Disconnecting from database...'));
+        try {
+            if (!url) throw new Error('database url is not defined');
+            const { connection } = await mongoose.connect(url);
+            console.log(colors.green.bold(`database was successful connection on ${connection.host}:${connection.port}`));
+        } catch (err) {
+            console.log(err);
+            exit(1);
+        }
     }
 }

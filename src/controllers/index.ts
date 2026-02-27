@@ -1,1 +1,1 @@
-export * from './createSection.controller.js'
+export * from './createSection.controller.js';
