@@ -5,6 +5,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import { env } from './config/index.js';
 import cors, { type CorsOptions } from 'cors';
+import { appRouter } from './routes/appRouter.js';
 
 (async () => {
     await Database.connect();
@@ -39,5 +40,6 @@ async function main() {
     server.use(morgan('dev'));
     server.use(cors(corsOptions));
 
-
+    //* routes
+    server.use('/api', appRouter);
 }
