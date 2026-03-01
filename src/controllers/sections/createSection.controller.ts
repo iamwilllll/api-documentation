@@ -1,7 +1,7 @@
 import type { Request, Response, NextFunction } from 'express';
-import { AppError } from '../errors/appError.js';
-import { SectionModel } from '../models/index.js';
-import { ApiResponse } from '../helpers/apiResponse.js';
+import { AppError } from '../../errors/appError.js';
+import { SectionModel } from '../../models/index.js';
+import { ApiResponse } from '../../helpers/apiResponse.js';
 
 export async function createSectionController(req: Request, res: Response, next: NextFunction) {
     try {
@@ -10,9 +10,8 @@ export async function createSectionController(req: Request, res: Response, next:
             throw new AppError('Section name and description are required', 400, 'INVALID_INPUT');
 
         const newSection = await SectionModel.create({ sectionName, sectionDescription });
-        const response = await newSection.save();
 
-        return ApiResponse.success(res, 201, 'Section created successfully', { section: response.toObject() });
+        return ApiResponse.success(res, 201, 'Section created successfully', { section: newSection.toObject() });
     } catch (err) {
         next(err);
     }

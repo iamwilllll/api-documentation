@@ -1,7 +1,7 @@
 import type { Request, Response, NextFunction } from 'express';
-import { AppError } from '../errors/appError.js';
-import { SectionModel } from '../models/index.js';
-import { ApiResponse } from '../helpers/apiResponse.js';
+import { AppError } from '../../errors/appError.js';
+import { SectionModel } from '../../models/index.js';
+import { ApiResponse } from '../../helpers/apiResponse.js';
 
 export async function updateSectionController(req: Request, res: Response, next: NextFunction) {
     try {

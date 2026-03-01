@@ -1,5 +1,7 @@
-export * from './createSection.controller.js';
-export * from './updateSection.controller.js';
-export * from './getAllSections.controller.js';
-export * from './getSectionById.controller.js';
-export * from './deleteSection.controller.js';
+export * from './sections/createSection.controller.js';
+export * from './sections/updateSection.controller.js';
+export * from './sections/getAllSections.controller.js';
+export * from './sections/getSectionById.controller.js';
+export * from './sections/deleteSection.controller.js';
+
+export * from './endpoints/createEndPoint.controller.js';

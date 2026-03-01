@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction } from 'express';
-import { SectionModel } from '../models/index.js';
-import { ApiResponse } from '../helpers/apiResponse.js';
+import { SectionModel } from '../../models/index.js';
+import { ApiResponse } from '../../helpers/apiResponse.js';
 
 export async function getAllSectionsController(req: Request, res: Response, next: NextFunction) {
     try {
