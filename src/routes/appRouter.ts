@@ -1,10 +1,10 @@
 import { Router } from 'express';
-import { createSectionController } from '../controllers/index.js';
-import { errorMiddleware } from '../middlewares/errorMiddleware.js';
-import { createSectionMiddleware } from '../middlewares/endpoints/createSection.middleware.js';
+import { createSectionController, updateSectionController } from '../controllers/index.js';
+import { createSectionMiddleware, updateSectionMiddleware } from '../middlewares/index.js';
 
 const appRouter: Router = Router();
 
-appRouter.post('/sections', createSectionMiddleware, createSectionController, errorMiddleware);
+appRouter.post('/sections', createSectionMiddleware, createSectionController);
+appRouter.patch('/sections/:id', updateSectionMiddleware, updateSectionController);
 
 export default appRouter;

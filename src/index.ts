@@ -5,8 +5,8 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import { env } from './config/index.js';
 import cors, { type CorsOptions } from 'cors';
+import { errorMiddleware } from './middlewares/errorMiddleware.js';
 import appRouter from './routes/appRouter.js';
-
 (async () => {
     await Database.connect();
     await main();
@@ -39,6 +39,7 @@ async function main() {
     server.use(helmet());
     server.use(morgan('dev'));
     server.use(cors(corsOptions));
+    server.use(errorMiddleware);
 
     //* routes
     server.use('/api', appRouter);
