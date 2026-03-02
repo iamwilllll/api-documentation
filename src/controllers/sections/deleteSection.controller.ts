@@ -5,13 +5,13 @@ import { ApiResponse } from '../../helpers/apiResponse.js';
 
 export async function deleteSectionController(req: Request, res: Response, next: NextFunction) {
     try {
-        const { id } = req.params;
-        if (!id) throw new AppError('Section ID is required', 400, 'INVALID_INPUT');
+        const { sectionId } = req.params;
+        if (!sectionId) throw new AppError('Section ID is required', 400, 'INVALID_INPUT');
 
-        const updatedSection = await SectionModel.findById(id);
+        const updatedSection = await SectionModel.findById(sectionId);
         if (!updatedSection) throw new AppError('Section not found', 404, 'SECTION_NOT_FOUND');
 
-        await SectionModel.findByIdAndDelete(id);
+        await SectionModel.findByIdAndDelete(sectionId);
         return ApiResponse.success(res, 200, 'Section deleted successfully', { section: updatedSection.toObject() });
     } catch (err) {
         next(err);

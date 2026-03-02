@@ -5,10 +5,10 @@ import { ApiResponse } from '../../helpers/apiResponse.js';
 
 export async function getSectionByIdController(req: Request, res: Response, next: NextFunction) {
     try {
-        const { id } = req.params;
-        if (!id) throw new AppError('Section ID is required', 400, 'INVALID_INPUT');
+        const { sectionId } = req.params;
+        if (!sectionId) throw new AppError('Section ID is required', 400, 'INVALID_INPUT');
 
-        const updatedSection = await SectionModel.findById(id);
+        const updatedSection = await SectionModel.findById(sectionId);
         if (!updatedSection) throw new AppError('Section not found', 404, 'SECTION_NOT_FOUND');
 
         return ApiResponse.success(res, 200, 'Section retrieved successfully', { section: updatedSection.toObject() });

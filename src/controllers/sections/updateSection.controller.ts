@@ -5,13 +5,13 @@ import { ApiResponse } from '../../helpers/apiResponse.js';
 
 export async function updateSectionController(req: Request, res: Response, next: NextFunction) {
     try {
-        const { id } = req.params;
+        const { sectionId } = req.params;
         const { sectionName, sectionDescription } = req.body;
 
-        if (!id) throw new AppError('Section ID is required', 400, 'INVALID_INPUT');
+        if (!sectionId) throw new AppError('Section ID is required', 400, 'INVALID_INPUT');
 
         const updatedSection = await SectionModel.findByIdAndUpdate(
-            id,
+            sectionId,
             { sectionName, sectionDescription },
             { new: true, runValidators: true }
         );
