@@ -3,14 +3,14 @@ import mongoose, { Schema } from 'mongoose';
 type SectionT = {
     sectionName: string;
     sectionDescription: string;
-    endPoints: string[];
+    endPoints: mongoose.Types.ObjectId[];
 };
 
 const SectionSchema = new Schema<SectionT>(
     {
         sectionName: { type: String, required: true },
         sectionDescription: { type: String, required: true },
-        endPoints: { type: [String], required: true, default: [] },
+        endPoints: { type: [Schema.Types.ObjectId], required: true, default: [] },
     },
     { timestamps: true, versionKey: false }
 );

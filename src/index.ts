@@ -39,8 +39,10 @@ async function main() {
     server.use(helmet());
     server.use(morgan('dev'));
     server.use(cors(corsOptions));
-    server.use(errorMiddleware);
 
     //* routes
     server.use('/api', appRouter);
+
+    // * error handling middleware
+    server.use(errorMiddleware);
 }

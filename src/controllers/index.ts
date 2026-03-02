@@ -5,3 +5,4 @@ export * from './sections/getSectionById.controller.js';
 export * from './sections/deleteSection.controller.js';
 
 export * from './endpoints/createEndPoint.controller.js';
+export * from './endpoints/updateEndPoint.controller.js';

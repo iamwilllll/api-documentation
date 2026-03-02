@@ -6,8 +6,15 @@ import {
     getSectionByIdController,
     deleteSectionController,
     createEndPointController,
+    updateEndPointController,
 } from '../controllers/index.js';
-import { createSectionMiddleware, updateSectionMiddleware, createEndPointMiddleware } from '../middlewares/index.js';
+import {
+    createSectionMiddleware,
+    updateSectionMiddleware,
+    createEndPointMiddleware,
+    updateEndPointMiddleware,
+    errorMiddleware,
+} from '../middlewares/index.js';
 
 const appRouter: Router = Router();
 
@@ -17,6 +24,7 @@ appRouter.get('/sections', getAllSectionsController);
 appRouter.get('/sections/:id', getSectionByIdController);
 appRouter.delete('/sections/:id', deleteSectionController);
 
-appRouter.post('/endPoint/', createEndPointMiddleware, createEndPointController);
+appRouter.post('/endpoints/:endpointId', createEndPointMiddleware, createEndPointController);
+appRouter.patch('/endpoints/:endpointId', updateEndPointMiddleware, updateEndPointController, errorMiddleware);
 
 export default appRouter;

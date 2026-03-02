@@ -5,6 +5,7 @@ type EndPointT = {
     URL: string;
     description?: string;
     jsonSchema?: object;
+    section: mongoose.Types.ObjectId;
 };
 
 const EndPointSchema = new Schema<EndPointT>(
@@ -13,6 +14,7 @@ const EndPointSchema = new Schema<EndPointT>(
         URL: { type: String, required: true },
         description: { type: String, required: true },
         jsonSchema: { type: Object, required: false },
+        section: { type: Schema.Types.ObjectId, ref: 'Section', required: true },
     },
     { timestamps: true, versionKey: false }
 );

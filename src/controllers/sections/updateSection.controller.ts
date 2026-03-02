@@ -9,11 +9,13 @@ export async function updateSectionController(req: Request, res: Response, next:
         const { sectionName, sectionDescription } = req.body;
 
         if (!id) throw new AppError('Section ID is required', 400, 'INVALID_INPUT');
+
         const updatedSection = await SectionModel.findByIdAndUpdate(
             id,
             { sectionName, sectionDescription },
             { new: true, runValidators: true }
         );
+
         if (!updatedSection) throw new AppError('Section not found', 404, 'SECTION_NOT_FOUND');
 
         return ApiResponse.success(res, 200, 'Section updated successfully', { section: updatedSection.toObject() });
