@@ -1,17 +1,17 @@
 import type { RequestHandler } from 'express';
-import type { Mongoose } from 'mongoose';
 
 export type CSMConfig = {
     /*
-     * Path where the CSM will be mounted.
-     * E.g., '/api-docs'
+     * Mount path for the documentation UI and API routes.
+     * E.g., '/docs' will serve the UI at '/docs' and API routes under '/docs/api'.
      */
-    mountPath: string;
+    routePath?: string;
 
     /*
      * Optional middleware to protect the documentation.
      * E.g., JWT authentication.
-     */ protectWith?: RequestHandler;
+     */
+    protectWith?: RequestHandler;
 
     /*
      * Execution mode.

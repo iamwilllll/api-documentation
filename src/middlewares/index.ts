@@ -8,3 +8,4 @@ export * from './sections/updateSection.middleware.js';
 // *endpoint-specific middlewares
 export * from './endpoints/createEndPoint.middleware.js';
 export * from './endpoints/updateEndPoint.middleware.js';
+export * from './endpoints/validateSection.middleware.js';

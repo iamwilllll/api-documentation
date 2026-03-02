@@ -5,20 +5,20 @@ import { ApiResponse } from '../../helpers/apiResponse.js';
 
 export async function updateEndPointController(req: Request, res: Response, next: NextFunction) {
     try {
-        const { endpointId } = req.params;
         const { method, URL, description, jsonSchema } = req.body;
 
-        if (!endpointId) throw new AppError('Endpoint ID is required', 400, 'INVALID_INPUT');
+        const endpoint = req.endpoint;
+        if (!endpoint) throw new AppError('Endpoint not found in request', 404, 'ENDPOINT_NOT_FOUND');
 
         const updatedEndpoint = await EndPointModel.findByIdAndUpdate(
-            endpointId,
+            endpoint._id,
             { method, URL, description, jsonSchema },
             { new: true, runValidators: true }
         );
 
         if (!updatedEndpoint) throw new AppError('Endpoint not found', 404, 'ENDPOINT_NOT_FOUND');
 
-        return ApiResponse.success(res, 200, 'Endpoint updated successfully', { endpoint: updatedEndpoint.toObject() });
+        return ApiResponse.success(res, 200, 'Endpoint updated successfully', { endpoint: updatedEndpoint });
     } catch (err) {
         next(err);
     }

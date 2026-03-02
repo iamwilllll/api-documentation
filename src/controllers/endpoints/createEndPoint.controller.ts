@@ -6,11 +6,11 @@ import { ApiResponse } from '../../helpers/apiResponse.js';
 export async function createEndPointController(req: Request, res: Response, next: NextFunction) {
     try {
         const { method, URL, description, jsonSchema } = req.body;
-        const { endpointId } = req.params;
+        const { sectionId } = req.params;
 
-        if (!endpointId) throw new AppError('Endpoint ID is required', 400, 'INVALID_INPUT');
+        if (!sectionId) throw new AppError('Section ID is required', 400, 'INVALID_INPUT');
         if (!method || !URL) throw new AppError('Method and URL are required', 400, 'INVALID_INPUT');
-        const sectionExists = await SectionModel.findById(endpointId);
+        const sectionExists = await SectionModel.findById(sectionId);
         if (!sectionExists) throw new AppError('Section not found', 404, 'SECTION_NOT_FOUND');
 
         const newEndpoint = new EndPointModel({
@@ -18,7 +18,7 @@ export async function createEndPointController(req: Request, res: Response, next
             URL,
             description,
             jsonSchema,
-            section: endpointId,
+            section: sectionId,
         });
 
         sectionExists.endPoints.push(newEndpoint._id);
