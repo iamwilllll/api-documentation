@@ -1,48 +1,34 @@
-import { Database } from './config/db.js';
-import { Server } from './config/server.js';
-import express from 'express';
-import helmet from 'helmet';
-import morgan from 'morgan';
-import { env } from './config/index.js';
-import cors, { type CorsOptions } from 'cors';
-import { errorMiddleware } from './middlewares/errorMiddleware.js';
+import express, { Router } from 'express';
+import type { CSMConfig } from './types/index.js';
 import appRouter from './routes/appRouter.js';
-(async () => {
-    await Database.connect();
-    await main();
-})();
 
-async function main() {
-    // * server initialization
-    const server = Server.init();
+export function createCSM(config: CSMConfig): Router {
+    const router = Router();
+    const { protectWith, mode = 'development', title = 'API Documentation' } = config;
 
-    // * proxy
-    server.set('trust proxy', 1);
+    router.use(express.json());
 
-    //* cors configuration
-    const allowedOrigins: string[] = [env.baseUrl, 'http://localhost:5173', 'http://localhost:3000'];
-    const corsOptions: CorsOptions = {
-        origin: (origin, callback) => {
-            if (!origin) return callback(null, true);
-            if (env.isDev) return callback(null, true);
-            if (allowedOrigins.includes(origin)) return callback(null, true);
+    if (protectWith) router.use(protectWith);
+    if (mode === 'production') {
+        router.use('/api', (req, res, next) => {
+            if (['POST', 'PUT', 'PATCH', 'DELETE'].includes(req.method)) {
+                return res.status(403).json({
+                    message: 'CSM is in production mode (read-only)',
+                });
+            }
+            next();
+        });
+    }
 
-            return callback(new Error('Not allowed by CORS'));
-        },
+    router.use((req, res, next) => {
+        res.locals.csmTitle = title;
+        next();
+    });
 
-        credentials: true,
-        optionsSuccessStatus: 200,
-    };
+    router.use('/api', appRouter);
 
-    //* middlewares
-    server.use(express.json());
-    server.use(helmet());
-    server.use(morgan('dev'));
-    server.use(cors(corsOptions));
+    // ? serve static files for the documentation UI
+    // router.use(express.static(pathToDist));
 
-    //* routes
-    server.use('/api', appRouter);
-
-    // * error handling middleware
-    server.use(errorMiddleware);
+    return router;
 }

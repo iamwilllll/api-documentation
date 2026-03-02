@@ -1,36 +1,39 @@
 {
-    "name": "api_documentation-back",
+    "start": "node dist/index.js",
     "version": "1.0.0",
     "type": "module",
-    "main": "/src/index.ts",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "files": [
+        "dist"
+    ],
     "scripts": {
-        "format": "prettier --write .",
-        "dev": "tsx --watch ./src/index.ts ",
-        "lint": "eslint . --ext .ts",
+        "dev": "tsx --watch ./src/test/index.ts",
         "build": "rimraf dist && tsc",
-        "start": "node dist/index.js"
+        "lint": "eslint . --ext .ts",
+        "format": "prettier --write .",
+        "prepublishOnly": "pnpm build"
     },
-    "keywords": [],
+    "keywords": [
+        "express",
+        "api",
+        "documentation",
+        "dx"
+    ],
     "author": "Wilfryn Viloria Rosario",
     "license": "ISC",
     "packageManager": "pnpm@10.24.0",
+    "peerDependencies": {
+        "express": "^5.0.0",
+        "mongoose": "^9.0.0"
+    },
     "dependencies": {
-        "colors": "^1.4.0",
-        "cors": "^2.8.6",
-        "dotenv": "^17.3.1",
-        "express": "^5.2.1",
-        "express-rate-limit": "^8.2.1",
         "express-validator": "^7.3.1",
-        "helmet": "^8.1.0",
-        "mongodb": "^7.1.0",
-        "mongoose": "^9.2.3",
-        "morgan": "^1.10.1"
+        "mongodb": "^7.1.0"
     },
     "devDependencies": {
         "@eslint/js": "^10.0.1",
-        "@types/cors": "^2.8.19",
         "@types/express": "^5.0.6",
-        "@types/morgan": "^1.9.10",
         "@types/node": "^25.3.2",
         "@typescript-eslint/eslint-plugin": "^8.56.1",
         "@typescript-eslint/parser": "^8.56.1",
@@ -40,5 +43,11 @@
         "tsx": "^4.21.0",
         "typescript": "^5.9.3",
         "typescript-eslint": "^8.56.1"
+    },
+    "exports": {
+        ".": {
+            "import": "./dist/index.js",
+            "types": "./dist/index.d.ts"
+        }
     }
 }
