@@ -1,3 +1,12 @@
+#use guide
+Descarga los archivos estaticos de la construccion del proyecto o reconstruyelos desde el proyecto
+copia los controllers y las rutas para crear los enpoints
+middlewares opcionales **recomemdados** (en los controllers se hace la verificacion de todos los datos, pero es mejor en los middlewares)
+Ya todo estaria ready, verifica que en el .env los nombres de las variables sean correctos (revisar con el .evn_template)
+
+ahora solo queda servir los archivos estaticos desde la http://{url}/api
+y empezar a documentar los endpoints para una mejor experiencia de desarrollador
+
 POST /api/sections
 
 body: {
