@@ -4,7 +4,7 @@ import appRouter from './routes/appRouter.js';
 import path from 'node:path';
 import { errorMiddleware } from './middlewares/errorMiddleware.js';
 
-export function createCSM(config: CSMConfig): Router {
+function createCSM(config: CSMConfig): Router {
     const router = Router();
 
     // * Set default values and destructure config
@@ -50,3 +50,5 @@ export function createCSM(config: CSMConfig): Router {
 
     return router;
 }
+
+export default createCSM;
