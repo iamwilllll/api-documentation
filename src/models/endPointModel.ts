@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 
-type EndPointT = {
+type EndpointT = {
     method: 'GET' | 'POST' | 'PUT' | 'DELETE';
     URL: string;
     description?: string;
@@ -8,7 +8,7 @@ type EndPointT = {
     section: mongoose.Types.ObjectId;
 };
 
-const EndPointSchema = new Schema<EndPointT>(
+const EndpointSchema = new Schema<EndpointT>(
     {
         method: { type: String, required: true, enum: ['GET', 'POST', 'PUT', 'DELETE'] },
         URL: { type: String, required: true },
@@ -19,4 +19,4 @@ const EndPointSchema = new Schema<EndPointT>(
     { timestamps: true, versionKey: false }
 );
 
-export const EndPointModel = mongoose.model<EndPointT>('EndPoint', EndPointSchema);
+export const EndpointModel = mongoose.model<EndpointT>('Endpoint', EndpointSchema);

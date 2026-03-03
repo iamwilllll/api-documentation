@@ -4,8 +4,8 @@ export * from './sections/getAllSections.controller.js';
 export * from './sections/getSectionById.controller.js';
 export * from './sections/deleteSection.controller.js';
 
-export * from './endpoints/createEndPoint.controller.js';
-export * from './endpoints/updateEndPoint.controller.js';
-export * from './endpoints/getAllEndPoints.controller.js';
-export * from './endpoints/getEndPointById.controller.js';
-export * from './endpoints/deleteEndPoint.controller.js';
+export * from './endpoints/createEndpoint.controller.js';
+export * from './endpoints/updateEndpoint.controller.js';
+export * from './endpoints/getAllEndpoints.controller.js';
+export * from './endpoints/getEndpointById.controller.js';
+export * from './endpoints/deleteEndpoint.controller.js';

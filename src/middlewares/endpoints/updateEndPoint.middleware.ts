@@ -1,7 +1,7 @@
 import { body } from 'express-validator';
 import { handleInputErrors } from '../handleInputError.js';
 
-export const updateEndPointMiddleware = [
+export const updateEndpointMiddleware = [
     body('method')
         .optional()
         .isIn(['GET', 'POST', 'PUT', 'DELETE'])

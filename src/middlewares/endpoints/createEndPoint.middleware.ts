@@ -1,7 +1,7 @@
 import { body } from 'express-validator';
 import { handleInputErrors } from '../handleInputError.js';
 
-export const createEndPointMiddleware = [
+export const createEndpointMiddleware = [
     body('method')
         .exists()
         .withMessage('Method is required')

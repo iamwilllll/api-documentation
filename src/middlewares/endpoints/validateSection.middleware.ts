@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from 'express';
-import { SectionModel, EndPointModel } from '../../models/index.js';
+import { SectionModel, EndpointModel } from '../../models/index.js';
 import { AppError } from '../../errors/index.js';
 import { request } from 'http';
 
@@ -12,7 +12,7 @@ export async function validateSectionAndEndpoint(req: Request, _res: Response, n
         if (!section) throw new AppError('Section not found', 404, 'SECTION_NOT_FOUND');
 
         if (endpointId) {
-            const endpoint = await EndPointModel.findOne({
+            const endpoint = await EndpointModel.findOne({
                 _id: endpointId,
                 section: sectionId,
             });

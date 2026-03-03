@@ -1,9 +1,9 @@
 import type { Request, Response, NextFunction } from 'express';
-import { EndPointModel, SectionModel } from '../../models/index.js';
+import { EndpointModel, SectionModel } from '../../models/index.js';
 import { AppError } from '../../errors/appError.js';
 import { ApiResponse } from '../../helpers/apiResponse.js';
 
-export async function createEndPointController(req: Request, res: Response, next: NextFunction) {
+export async function createEndpointController(req: Request, res: Response, next: NextFunction) {
     try {
         const { method, URL, description, jsonSchema } = req.body;
         const { sectionId } = req.params;
@@ -13,7 +13,7 @@ export async function createEndPointController(req: Request, res: Response, next
         const sectionExists = await SectionModel.findById(sectionId);
         if (!sectionExists) throw new AppError('Section not found', 404, 'SECTION_NOT_FOUND');
 
-        const newEndpoint = new EndPointModel({
+        const newEndpoint = new EndpointModel({
             method,
             URL,
             description,
@@ -21,7 +21,7 @@ export async function createEndPointController(req: Request, res: Response, next
             section: sectionId,
         });
 
-        sectionExists.endPoints.push(newEndpoint._id);
+        sectionExists.endpoints.push(newEndpoint._id);
 
         await Promise.all([newEndpoint.save(), sectionExists.save()]);
 

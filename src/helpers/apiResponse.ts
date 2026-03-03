@@ -15,7 +15,7 @@ export class ApiResponse {
         const response: ApiResponseT<T> = {
             success: true,
             message,
-            data: data,
+            ...(data ?? {}),
         };
 
         return res.status(statusCode).json(response);

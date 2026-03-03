@@ -4,7 +4,7 @@ import { ApiResponse } from '../../helpers/apiResponse.js';
 
 export async function getAllSectionsController(req: Request, res: Response, next: NextFunction) {
     try {
-        const sections = await SectionModel.find({});
+        const sections = await SectionModel.find({}).populate('endpoints');
         return ApiResponse.success(res, 200, 'Sections retrieved successfully', { sections });
     } catch (err) {
         next(err);

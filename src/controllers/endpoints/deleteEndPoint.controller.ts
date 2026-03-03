@@ -3,7 +3,7 @@ import { AppError } from '../../errors/appError.js';
 import { SectionModel } from '../../models/index.js';
 import { ApiResponse } from '../../helpers/apiResponse.js';
 
-export async function deleteEndPointController(req: Request, res: Response, next: NextFunction) {
+export async function deleteEndpointController(req: Request, res: Response, next: NextFunction) {
     try {
         const endpoint = req.endpoint;
         if (!endpoint) throw new AppError('Endpoint not found in request', 404, 'ENDPOINT_NOT_FOUND');

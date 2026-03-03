@@ -41,7 +41,7 @@ Response : {
 "id": "65fd123abc456",
 "sectionName": "Auth",
 "sectionDescription": "Authentication endpoints",
-"endPoints": [
+"endpoints": [
 {
 "id": "ep1",
 "method": "POST",

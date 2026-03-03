@@ -1,2 +1,2 @@
 export * from './sectionModel.js';
-export * from './endPointModel.js';
+export * from './endpointModel.js';

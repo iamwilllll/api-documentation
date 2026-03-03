@@ -5,17 +5,17 @@ import {
     getAllSectionsController,
     getSectionByIdController,
     deleteSectionController,
-    createEndPointController,
-    updateEndPointController,
-    getAllEndPointsController,
-    getEndPointByIdController,
-    deleteEndPointController,
+    createEndpointController,
+    updateEndpointController,
+    getAllEndpointsController,
+    getEndpointByIdController,
+    deleteEndpointController,
 } from '../controllers/index.js';
 import {
     createSectionMiddleware,
     updateSectionMiddleware,
-    createEndPointMiddleware,
-    updateEndPointMiddleware,
+    createEndpointMiddleware,
+    updateEndpointMiddleware,
     validateSectionAndEndpoint,
 } from '../middlewares/index.js';
 
@@ -27,15 +27,15 @@ appRouter.get('/sections', getAllSectionsController);
 appRouter.get('/sections/:sectionId', getSectionByIdController);
 appRouter.delete('/sections/:sectionId', deleteSectionController);
 
-appRouter.post('/sections/:sectionId/endpoints', createEndPointMiddleware, createEndPointController);
-appRouter.get('/sections/:sectionId/endpoints', getAllEndPointsController);
-appRouter.get('/sections/:sectionId/endpoints/:endpointId', validateSectionAndEndpoint, getEndPointByIdController);
+appRouter.post('/sections/:sectionId/endpoints', createEndpointMiddleware, createEndpointController);
+appRouter.get('/sections/:sectionId/endpoints', getAllEndpointsController);
+appRouter.get('/sections/:sectionId/endpoints/:endpointId', validateSectionAndEndpoint, getEndpointByIdController);
 appRouter.patch(
     '/sections/:sectionId/endpoints/:endpointId',
     validateSectionAndEndpoint,
-    updateEndPointMiddleware,
-    updateEndPointController
+    updateEndpointMiddleware,
+    updateEndpointController
 );
-appRouter.delete('/sections/:sectionId/endpoints/:endpointId', validateSectionAndEndpoint, deleteEndPointController);
+appRouter.delete('/sections/:sectionId/endpoints/:endpointId', validateSectionAndEndpoint, deleteEndpointController);
 
 export default appRouter;

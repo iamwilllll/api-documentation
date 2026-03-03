@@ -1,11 +1,11 @@
 import type { Request, Response, NextFunction } from 'express';
-import { EndPointModel } from '../../models/index.js';
+import { EndpointModel } from '../../models/index.js';
 import { ApiResponse } from '../../helpers/apiResponse.js';
 
-export async function getAllEndPointsController(req: Request, res: Response, next: NextFunction) {
+export async function getAllEndpointsController(req: Request, res: Response, next: NextFunction) {
     try {
-        const endPoints = await EndPointModel.find({});
-        return ApiResponse.success(res, 200, 'Endpoints retrieved successfully', { endPoints });
+        const endpoints = await EndpointModel.find({});
+        return ApiResponse.success(res, 200, 'Endpoints retrieved successfully', { endpoints });
     } catch (err) {
         next(err);
     }
