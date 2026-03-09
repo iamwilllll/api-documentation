@@ -3,22 +3,19 @@ import type { CSMConfig } from './types/index.js';
 import appRouter from './routes/appRouter.js';
 import path from 'node:path';
 import { errorMiddleware } from './middlewares/errorMiddleware.js';
+import { ApiResponse } from './helpers/apiResponse.js';
 
 function createCSM(config: CSMConfig): Router {
     const router = Router();
+    const { protectWith, mode = 'development', title = 'API Documentation', routePath = 'documentation' } = config;
+    const __dirname = import.meta.dirname;
+    const pathToDist = path.join(__dirname, './public');
 
-    // * Set default values and destructure config
-    const { protectWith, mode = 'development', routePath = '/documentation', title = 'API Documentation' } = config;
-
-    // * Middleware setup
     router.use(express.json());
 
-    // * Protect routes if middleware is provided
     if (protectWith) router.use(protectWith);
-
-    // * Restrict write operations in production mode
     if (mode === 'production') {
-        router.use(routePath, (req, res, next) => {
+        router.use(`/${routePath}`, (req, res, next) => {
             if (['POST', 'PUT', 'PATCH', 'DELETE'].includes(req.method)) {
                 return res.status(403).json({
                     message: 'CSM is in production mode (read-only)',
@@ -28,25 +25,18 @@ function createCSM(config: CSMConfig): Router {
         });
     }
 
-    // * Set title in response locals for use in controllers
     router.use((req, res, next) => {
         res.locals.csmTitle = title;
         next();
     });
-
-    // * Use the app router for API routes
-    router.use(routePath, appRouter);
-
-    // * Global error handling middleware
+    router.use(`/${routePath}`, appRouter);
     router.use(errorMiddleware);
+    router.use(express.static(pathToDist));
 
-    // * Serve static files for the documentation UI
-    const __dirname = import.meta.dirname;
-    const pathToDist = path.join(__dirname, './public');
-
-    router.get('/', (req, res) => {
-        res.sendFile(path.join(pathToDist, 'index.html'));
-    });
+    router.get(`/${routePath}`, (req, res) => res.sendFile(path.join(pathToDist, 'index.html')));
+    router.get(`/configuration_documentation_csm`, (req, res) =>
+        ApiResponse.success(res, 200, 'Mode retrieved successfully', { mode, routePath })
+    );
 
     return router;
 }
