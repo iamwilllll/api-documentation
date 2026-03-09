@@ -1,7 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
 
 type EndpointT = {
-    method: 'GET' | 'POST' | 'PUT' | 'DELETE';
+    method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
     URL: string;
     description?: string;
     jsonSchema?: object;
@@ -10,7 +10,7 @@ type EndpointT = {
 
 const EndpointSchema = new Schema<EndpointT>(
     {
-        method: { type: String, required: true, enum: ['GET', 'POST', 'PUT', 'DELETE'] },
+        method: { type: String, required: true, enum: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'] },
         URL: { type: String, required: true },
         description: { type: String, required: true },
         jsonSchema: { type: Object, required: false },
