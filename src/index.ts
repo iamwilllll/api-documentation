@@ -33,7 +33,7 @@ function createCSM(config: CSMConfig): Router {
 
     router.use(`/${routePath}`, express.static(pathToDist));
 
-    router.get(`/${routePath}/*`, (req, res) => {
+    router.get(`/${routePath}/`, (req, res) => {
         res.sendFile(path.join(pathToDist, 'index.html'));
     });
 
