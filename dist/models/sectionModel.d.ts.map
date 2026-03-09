@@ -1,1 +1,0 @@
-{"version":3,"file":"sectionModel.d.ts","sourceRoot":"","sources":["../../src/models/sectionModel.ts"],"names":[],"mappings":"AAAA,OAAO,QAAoB,MAAM,UAAU,CAAC;AAE5C,KAAK,QAAQ,GAAG;IACZ,WAAW,EAAE,MAAM,CAAC;IACpB,kBAAkB,EAAE,MAAM,CAAC;IAC3B,SAAS,EAAE,QAAQ,CAAC,KAAK,CAAC,QAAQ,EAAE,CAAC;CACxC,CAAC;AAWF,eAAO,MAAM,YAAY;;;;;;iBAAqD,CAAC"}

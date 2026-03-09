@@ -1,1 +1,0 @@
-{"version":3,"file":"validateSection.middleware.d.ts","sourceRoot":"","sources":["../../../src/middlewares/endpoints/validateSection.middleware.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,OAAO,EAAE,QAAQ,EAAE,YAAY,EAAE,MAAM,SAAS,CAAC;AAK/D,wBAAsB,0BAA0B,CAAC,GAAG,EAAE,OAAO,EAAE,IAAI,EAAE,QAAQ,EAAE,IAAI,EAAE,YAAY,iBAyBhG"}
