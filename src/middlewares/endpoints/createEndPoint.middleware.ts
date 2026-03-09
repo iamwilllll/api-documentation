@@ -5,7 +5,7 @@ export const createEndpointMiddleware = [
     body('method')
         .exists()
         .withMessage('Method is required')
-        .isIn(['GET', 'POST', 'PUT', 'DELETE'])
+        .isIn(['GET', 'POST', 'PUT', 'DELETE', 'PATCH'])
         .withMessage('Invalid HTTP method'),
     body('URL')
         .exists()

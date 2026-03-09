@@ -4,6 +4,13 @@ import { AppError } from '../errors/index.js';
 import mongoose from 'mongoose';
 
 export function errorMiddleware(err: any, req: Request, res: Response, next: NextFunction) {
+    console.error('UNEXPECTED ERROR:', {
+        message: err.message,
+        stack: err.stack,
+        path: req.originalUrl,
+        method: req.method,
+    });
+
     if (err instanceof AppError && err.isOperational) {
         return ApiResponse.error(res, err.statusCode, err.message, err.code);
     }
