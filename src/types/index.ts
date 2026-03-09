@@ -19,9 +19,4 @@ export type CSMConfig = {
      * - production: read-only
      */
     mode?: 'development' | 'production';
-
-    /*
-     * Title to be displayed in the UI.
-     */
-    title?: string;
 };

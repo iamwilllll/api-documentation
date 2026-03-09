@@ -7,7 +7,7 @@ import { ApiResponse } from './helpers/apiResponse.js';
 
 function createCSM(config: CSMConfig): Router {
     const router = Router();
-    const { protectWith, mode = 'development', title = 'API Documentation', routePath = 'documentation' } = config;
+    const { protectWith, mode = 'development', routePath = 'documentation' } = config;
     const __dirname = import.meta.dirname;
     const pathToDist = path.join(__dirname, './public');
 
@@ -25,10 +25,6 @@ function createCSM(config: CSMConfig): Router {
         });
     }
 
-    router.use((req, res, next) => {
-        res.locals.csmTitle = title;
-        next();
-    });
     router.use(`/${routePath}`, appRouter);
     router.use(errorMiddleware);
     router.use(express.static(pathToDist));
