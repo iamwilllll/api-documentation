@@ -11,6 +11,7 @@ export async function deleteSectionController(req: Request, res: Response, next:
         const updatedSection = await SectionModel.findById(sectionId);
         if (!updatedSection) throw new AppError('Section not found', 404, 'SECTION_NOT_FOUND');
 
+        await SectionModel.deleteMany({ _id: { $in: updatedSection.endpoints } });
         await SectionModel.findByIdAndDelete(sectionId);
         return ApiResponse.success(res, 200, 'Section deleted successfully', { section: updatedSection.toObject() });
     } catch (err) {
