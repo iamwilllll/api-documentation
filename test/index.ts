@@ -10,7 +10,7 @@ import 'dotenv/config.js';
     await mongoose.connect(URL);
 })();
 
-const allowedOrigins: string[] = ['http://localhost:5173', 'http://localhost:3000'];
+const allowedOrigins: string[] = ['http://localhost:5173'];
 const corsOptions: CorsOptions = {
     origin: (origin, callback) => {
         if (!origin) return callback(null, true);

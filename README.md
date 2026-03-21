@@ -1,58 +1,229 @@
-#use guide
-Descarga los archivos estaticos de la construccion del proyecto o reconstruyelos desde el proyecto
-copia los controllers y las rutas para crear los enpoints
-middlewares opcionales **recomemdados** (en los controllers se hace la verificacion de todos los datos, pero es mejor en los middlewares)
-Ya todo estaria ready, verifica que en el .env los nombres de las variables sean correctos (revisar con el .evn_template)
+# 🚀 API Documentation Middleware (CSM)
 
-ahora solo queda servir los archivos estaticos desde la http://{url}/api
-y empezar a documentar los endpoints para una mejor experiencia de desarrollador
+> Effortlessly generate structured, real-time API documentation for your Express applications.
 
-POST /api/sections
+---
 
-body: {
-"sectionName": "Auth",
-"sectionDescription": "Authentication endpoints"
-}
+## ✨ Overview
 
-Response : {
-"id": "65fd123abc456",
-"sectionName": "Auth",
-"sectionDescription": "Authentication endpoints",
-"createdAt": "2026-02-27T03:00:00.000Z"
-}
+**CSM (Custom Server Middleware)** is a powerful and minimal middleware designed to **automatically generate and serve API documentation** in Express-based applications.
 
-GET /api/sections
+Built with simplicity and flexibility in mind, CSM integrates seamlessly into your backend and exposes a clean documentation endpoint with almost zero configuration.
 
-Response : [
-{
-"id": "65fd123abc456",
-"sectionName": "Auth",
-"sectionDescription": "Authentication endpoints"
-},
-{
-"id": "65fd999xyz222",
-"sectionName": "Products",
-"sectionDescription": "Product management endpoints"
-}
-]
+---
 
-GET /api/sections/:id
-Response : {
-"id": "65fd123abc456",
-"sectionName": "Auth",
-"sectionDescription": "Authentication endpoints",
-"endpoints": [
-{
-"id": "ep1",
-"method": "POST",
-"URL": "api/auth/register",
-"description": "Register user"
-},
-{
-"id": "ep2",
-"method": "POST",
-"URL": "api/auth/login",
-"description": "Login user"
-}
-]
-}
+## ⚡ Why CSM?
+
+- 🔌 **Plug & Play** — Drop it into your Express app and it just works
+- 📄 **Auto Documentation** — No need to manually maintain docs
+- ⚙️ **Configurable** — Define your own route and environment mode
+- 🌐 **Frontend Ready** — Easily connect with any frontend
+- 🧠 **Developer Friendly** — Designed for speed and clarity
+
+---
+
+## 📦 Installation
+
+```bash
+npm install your-package-name
+```
+
+or
+
+```bash
+pnpm add your-package-name
+```
+
+---
+
+## 🛠 Requirements
+
+- Node.js 18+
+- MongoDB database
+- Express application
+
+---
+
+## ⚙️ Environment Setup
+
+Create a `.env` file in the root of your project:
+
+```env
+# development | production 
+VITE_DevelopmentMode=production
+MONGO_URL=your_mongodb_connection_string
+```
+
+---
+
+## 🚀 Quick Start
+
+```ts
+import express from 'express';
+import createCSM from 'your-package-name';
+import mongoose from 'mongoose';
+import cors, { type CorsOptions } from 'cors';
+import 'dotenv/config.js';
+
+(async () => {
+    const URL = process.env.MONGO_URL;
+
+    if (!URL) {
+        throw new Error('MONGO_URL is not defined in environment variables');
+    }
+
+    await mongoose.connect(URL);
+})();
+
+const allowedOrigins: string[] = ['http://localhost:5173'];
+
+const corsOptions: CorsOptions = {
+    origin: (origin, callback) => {
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.includes(origin)) return callback(null, true);
+        return callback(new Error('Not allowed by CORS'));
+    },
+    credentials: true,
+    optionsSuccessStatus: 200,
+};
+
+const app = express();
+
+app.use(cors(corsOptions));
+
+/**
+ * ⚠️ IMPORTANT
+ * The first argument MUST be an empty string ('')
+ */
+app.use(
+    '',
+    createCSM({
+        mode: 'development',
+        routePath: 'docs',
+    })
+);
+
+app.listen(3000, () => {
+    console.log('Server running on http://localhost:3000');
+});
+```
+
+---
+
+## 📍 Accessing Documentation
+
+Once your server is running, your API documentation will be available at:
+
+```
+http://localhost:3000/docs
+```
+
+---
+
+## ⚙️ Configuration
+
+CSM accepts a configuration object:
+
+```ts
+createCSM({
+    mode: 'development' | 'production',
+    routePath: string,
+});
+```
+
+### Options
+
+| Option      | Type                            | Description                            |
+| ----------- | ------------------------------- | -------------------------------------- |
+| `mode`      | `'development' \| 'production'` | Controls behavior based on environment |
+| `routePath` | `string`                        | Route where docs are exposed           |
+
+---
+
+## 🧠 How It Works
+
+CSM acts as an Express middleware that:
+
+- Hooks into your application lifecycle
+- Collects and structures API-related data
+- Generates a documentation layer dynamically
+- Serves it through a configurable endpoint
+
+No manual documentation writing required.
+
+---
+
+## ⚠️ Important Notes
+
+- You **must** use an empty string (`''`) as the first parameter in `app.use()`
+- MongoDB **must be connected before initializing** the middleware
+- CORS should be configured properly if used with a frontend
+- Designed primarily for development and internal tooling (depending on configuration)
+
+---
+
+## 🧪 Example Use Case
+
+Perfect for:
+
+- Internal tools
+- Rapid prototyping
+- Developer dashboards
+- API testing environments
+- Portfolio projects
+
+---
+
+## 🛡 Error Handling
+
+Common issues:
+
+- ❌ `MONGO_URL is not defined` → Ensure `.env` is configured
+- ❌ Connection timeout → Verify MongoDB connection
+- ❌ CORS errors → Adjust allowed origins
+
+---
+
+## 📁 Project Structure (Suggested)
+
+```
+project/
+├── src/
+├── dist/
+├── .env
+├── package.json
+└── server.ts
+```
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome and appreciated.
+
+```bash
+# Fork the repo
+# Create your feature branch
+git checkout -b feature/amazing-feature
+
+# Commit your changes
+git commit -m "Add amazing feature"
+
+# Push to the branch
+git push origin feature/amazing-feature
+```
+
+Then open a Pull Request.
+
+---
+
+## 📄 License
+
+MIT License
+
+---
+
+## 💡 Author
+Built with focus on simplicity, performance, and developer experience.
+
+By: Wilfryn Viloria Rosario
