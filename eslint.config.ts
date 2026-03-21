@@ -4,11 +4,16 @@ import tseslint from 'typescript-eslint';
 import { defineConfig } from 'eslint/config';
 
 export default defineConfig([
+    js.configs.recommended,
+    ...tseslint.configs.recommended,
     {
-        files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
-        plugins: { js },
-        extends: ['js/recommended'],
-        languageOptions: { globals: globals.browser },
+        ignores: ['dist', 'node_modules', 'src/static'],
     },
-    tseslint.configs.recommended,
+    {
+        files: ['**/*.{ts,mts,cts}'],
+        languageOptions: {
+            parser: tseslint.parser,
+            globals: globals.node,
+        },
+    },
 ]);
