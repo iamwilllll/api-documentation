@@ -12,7 +12,7 @@ function createCSM(config: CSMConfig): Router {
 
     const __filename = fileURLToPath(import.meta.url);
     const __dirname = path.dirname(__filename);
-    const pathToDist = path.join(__dirname, 'public');
+    const pathToDist = path.join(__dirname, 'static');
 
     router.use(express.json());
 
@@ -33,7 +33,7 @@ function createCSM(config: CSMConfig): Router {
 
     router.use(`/${routePath}`, express.static(pathToDist));
 
-    router.get(`/${routePath}/`, (req, res) => {
+    router.get(`/${routePath}`, (req, res) => {
         res.sendFile(path.join(pathToDist, 'index.html'));
     });
 
