@@ -10,10 +10,11 @@
     ],
     "scripts": {
         "dev": "tsx --watch ./src/test/index.ts",
-        "build": "rimraf dist && tsc",
+        "build": "rimraf dist && tsc && copyfiles -u 1 ./src/static/**/* dist/",
         "lint": "eslint . --ext .ts",
         "format": "prettier --write .",
-        "prepublishOnly": "pnpm build"
+        "prepublishOnly": "pnpm build",
+        "test": "tsx --watch ./test/index.ts"
     },
     "keywords": [
         "express",
@@ -31,6 +32,7 @@
     "dependencies": {
         "cors": "^2.8.6",
         "express-validator": "^7.3.1",
+        "helmet": "^8.1.0",
         "mongodb": "^7.1.0"
     },
     "devDependencies": {
@@ -40,6 +42,7 @@
         "@types/node": "^25.3.2",
         "@typescript-eslint/eslint-plugin": "^8.56.1",
         "@typescript-eslint/parser": "^8.56.1",
+        "copyfiles": "^2.4.1",
         "eslint": "^10.0.2",
         "globals": "^17.3.0",
         "rimraf": "^6.1.3",
