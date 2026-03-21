@@ -1,4 +1,3 @@
-import helmet from 'helmet';
 import express from 'express';
 import createCSM from '../dist/index.js';
 import mongoose from 'mongoose';
@@ -27,19 +26,4 @@ const app = express();
 app.use(cors(corsOptions));
 app.use('', createCSM({ mode: 'development', routePath: 'docs' }));
 
-app.get('/api', (req, res) => res.json({ message: 'Test route working!' }));
-
-app.use(
-    helmet({
-        contentSecurityPolicy: {
-            directives: {
-                defaultSrc: ["'self'"],
-                connectSrc: ["'self'", 'http://localhost:3000'],
-            },
-        },
-    })
-);
-
-app.listen(3000, () => {
-    console.log('Server running on http://localhost:3000');
-});
+app.listen(3000, () => console.log('Server running on http://localhost:3000'));
