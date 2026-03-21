@@ -3,9 +3,12 @@ import express from 'express';
 import createCSM from '../dist/index.js';
 import mongoose from 'mongoose';
 import cors, { type CorsOptions } from 'cors';
+import 'dotenv/config.js';
 
 (async () => {
-    await mongoose.connect('mongodb+srv://wilfrynvil:em2U2AhRQGwRItMB@api.c4oqm5f.mongodb.net/apiDocs?appName=api');
+    const URL = process.env.MONGO_URL;
+    if (!URL) throw new Error('MONGO_URL is not defined in environment variables');
+    await mongoose.connect(URL);
 })();
 
 const allowedOrigins: string[] = ['http://localhost:5173', 'http://localhost:3000'];
