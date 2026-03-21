@@ -3,6 +3,7 @@ import { ApiResponse } from '../helpers/index.js';
 import { AppError } from '../errors/index.js';
 import mongoose from 'mongoose';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
 export function errorMiddleware(err: any, req: Request, res: Response, next: NextFunction) {
     console.error('UNEXPECTED ERROR:', {
         message: err.message,

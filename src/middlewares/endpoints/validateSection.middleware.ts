@@ -1,7 +1,6 @@
 import type { Request, Response, NextFunction } from 'express';
 import { SectionModel, EndpointModel } from '../../models/index.js';
 import { AppError } from '../../errors/index.js';
-import { request } from 'http';
 
 export async function validateSectionAndEndpoint(req: Request, _res: Response, next: NextFunction) {
     try {

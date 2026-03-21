@@ -8,7 +8,6 @@ import cors, { type CorsOptions } from 'cors';
     await mongoose.connect('mongodb+srv://wilfrynvil:em2U2AhRQGwRItMB@api.c4oqm5f.mongodb.net/apiDocs?appName=api');
 })();
 
-//* cors configuration
 const allowedOrigins: string[] = ['http://localhost:5173', 'http://localhost:3000'];
 const corsOptions: CorsOptions = {
     origin: (origin, callback) => {
@@ -23,12 +22,9 @@ const corsOptions: CorsOptions = {
 const app = express();
 
 app.use(cors(corsOptions));
-
 app.use('', createCSM({ mode: 'development', routePath: 'docs' }));
 
-app.get('/api', (req, res) => {
-    res.json({ message: 'Test route working!' });
-});
+app.get('/api', (req, res) => res.json({ message: 'Test route working!' }));
 
 app.use(
     helmet({
